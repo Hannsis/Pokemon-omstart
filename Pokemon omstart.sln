@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32901.215
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pokemon omstart", "Pokemon omstart\Pokemon omstart.csproj", "{37BCF189-DD08-4C7A-A604-D94C651FCB1E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{37BCF189-DD08-4C7A-A604-D94C651FCB1E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{37BCF189-DD08-4C7A-A604-D94C651FCB1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{37BCF189-DD08-4C7A-A604-D94C651FCB1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{37BCF189-DD08-4C7A-A604-D94C651FCB1E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {99697A81-61E3-4EE5-A7CD-5073A21A8A0B}
+	EndGlobalSection
+EndGlobal

@@ -163,7 +163,7 @@ namespace Pokemon_omstart
                 {                                       
                     Console.WriteLine("You won the battle!");
                     Random randomGold = new Random();
-                    var gold = randomGold.Next(1, 20);//For gold
+                    var gold = randomGold.Next(1, 50);//For gold
                     Console.WriteLine($"You've deafeated the trainer and gotten {gold} gold for winning!");
                     pokemonChoice.Gold = gold;
                     LevelingUp(pokemonChoice);
@@ -172,32 +172,40 @@ namespace Pokemon_omstart
         }
 
         public static void LevelingUp(StarterPokemon pokemonChoice)
-            //it resets after every battle, return? 
+            
         {
             Random randomExp = new Random();
             int expWon = randomExp.Next(1, 100);
-            int currentExp = pokemonChoice.Exp;
+            //int currentExp = pokemonChoice.Exp;
 
-            pokemonChoice.Exp = currentExp + expWon;
-            int level = pokemonChoice.Level;
+            //pokemonChoice.Exp = currentExp + expWon;
+            pokemonChoice.Exp =+ expWon;
 
-            int expRequired = 100;
+            //int level = pokemonChoice.Level;
+
+            int expRequired =+ 100;//it resets after every battle.
 
             Console.WriteLine($"{expWon} won exp");
             Console.WriteLine($"{pokemonChoice.Exp} current exp");
 
-            Console.WriteLine($"{level} level");
             Console.WriteLine($"{pokemonChoice.Level} pokemon level");
 
-            if (currentExp > expRequired)
+            if (pokemonChoice.Level == 10) 
+            {
+                Console.WriteLine($"Congratulations! You have reached level {pokemonChoice.Level} and won the game!  ");
+                Environment.Exit(0);
+              
+            }
+
+            if (pokemonChoice.Exp > expRequired)
             {
                 pokemonChoice.Level++;
                 pokemonChoice.HP += 20;
-                currentExp -= expRequired;
-                expRequired = expRequired + 100;
-                Console.WriteLine($"Your pokemon leveled up! You now have {pokemonChoice.Exp}");
-                Console.WriteLine($"{currentExp} current exp");
-                Console.WriteLine($"{level} level");
+                expRequired += 100;
+                //currentExp -= expRequired;
+              
+                Console.WriteLine($"Your pokemon leveled up! Your pokemon is level {pokemonChoice.Level}");
+                Console.WriteLine($"{pokemonChoice.Exp} current exp");
                 Console.WriteLine($"{pokemonChoice.Level} pokemon level");
             }
 

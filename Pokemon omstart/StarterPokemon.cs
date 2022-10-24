@@ -32,6 +32,7 @@ namespace Pokemon_omstart
             Attack = 49;
             Defence = 49;
             Gold = 0;
+            Exp = 0;
 
         }
     }
@@ -47,6 +48,7 @@ namespace Pokemon_omstart
             Attack = 48;
             Defence = 65;
             Gold= 0;
+            Exp = 0;
 
         }     
     }
@@ -62,6 +64,7 @@ namespace Pokemon_omstart
             Attack = 52;
             Defence = 43;
             Gold = 0;
+            Exp = 0;
 
         }     
     }

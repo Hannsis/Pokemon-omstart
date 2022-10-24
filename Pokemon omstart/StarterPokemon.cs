@@ -15,6 +15,7 @@ namespace Pokemon_omstart
         public int Exp { get; set; }
         public int Level { get; set; }
         public int Defence { get; set; }
+        public int Gold { get; set; }
     }
 
 
@@ -30,6 +31,7 @@ namespace Pokemon_omstart
             HP = 45;
             Attack = 49;
             Defence = 49;
+            Gold = 0;
 
         }
     }
@@ -44,6 +46,7 @@ namespace Pokemon_omstart
             HP = 44;
             Attack = 48;
             Defence = 65;
+            Gold= 0;
 
         }     
     }
@@ -58,6 +61,7 @@ namespace Pokemon_omstart
             HP = 39;
             Attack = 52;
             Defence = 43;
+            Gold = 0;
 
         }     
     }

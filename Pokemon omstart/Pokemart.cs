@@ -8,6 +8,6 @@ namespace Pokemon_omstart
 {
     public class Pokemart
     {
-
+        //olika saker
     }
 }

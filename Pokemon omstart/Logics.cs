@@ -40,11 +40,12 @@ namespace Pokemon_omstart
             {
                 case "1":
                     {
-                       WildGrass(pokemonChoice);
+                       Combat.WildGrass(pokemonChoice);
                     }
                     break;
                 case "2":
                     {
+                        Console.Clear();
                         Console.WriteLine("Details about pokemon coming soon!");
                         PlayerStats(pokemonChoice);
                         Console.ReadKey();
@@ -52,6 +53,7 @@ namespace Pokemon_omstart
                     break;
                 case "3":
                     {
+                        
                         Console.WriteLine("welcome to the pokemart! ");
                         Console.ReadKey();
 
@@ -60,8 +62,8 @@ namespace Pokemon_omstart
                 case "4":
                     {
                         Pokecenter.PokemoncenterWelcome();
-
-                        Pokecenter.PokemonCenter(pokemonChoice, bulbasaur, charmander, squirtle);
+                        pokemonChoice.HP = 45;
+                        //Pokecenter.PokemonCenter(pokemonChoice, bulbasaur, charmander, squirtle);  -----bla bla bla doesn't exist blah
                     
                     }
                     break;
@@ -90,7 +92,8 @@ namespace Pokemon_omstart
             Console.WriteLine("1. The tall grass has wild pokemon in it! Do you want to go there?");
             Console.WriteLine("2. Show details about your pokemon.");
             Console.WriteLine("3. Visit the pokémart.");
-            Console.WriteLine("4. Quit game.");
+            Console.WriteLine("4. Visit the pokemon center.");
+            Console.WriteLine("5. Quit game.");
 
         }
 
@@ -159,37 +162,7 @@ namespace Pokemon_omstart
 
             }
         }
-
-        public void WildGrass(StarterPokemon pokemonChoice)
-        {
-            Random random = new Random();
-            int Spawn = random.Next(0, 9);
-
-            if (Spawn == 1)//return to SpelomgångMenu
-            {
-                Console.WriteLine("\nThe grass sways peacefully and nothing happened.\n");                
-            }
-
-            else if (Spawn == 2)
-            {
-                Combat combat = new Combat();
-                Console.WriteLine("\nThere is a russle in the grass, prepare for battle!");
-                Console.WriteLine("A trainer was hiding in the grass and wants to fight! Prepare for battle!");
-                combat.BattleTrainer(pokemonChoice);
-            }
-
-            else
-            {
-                Combat combat = new Combat();
-                Console.WriteLine("\nThere is a russle in the grass!");
-                Console.WriteLine("A wild pokemon was hiding in the grass and wants to fight! Prepare for battle!");
-                combat.BattleWildPokemon(pokemonChoice);
-
-            }
-        }
-
-
-
+            
     }
 
 }

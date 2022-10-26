@@ -4,89 +4,158 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Pokemon_omstart
+namespace Pokemon_omstart;
+
+public class Combat
 {
-    public class Combat
+    public static void WildGrass(StarterPokemon pokemonChoice)
     {
-        public static void WildGrass(StarterPokemon pokemonChoice)
+        Console.Clear();
+        Console.ReadKey();
+
+        Random random = new Random();
+        int Spawn = random.Next(0, 9);
+
+        if (Spawn == 1)//return to SpelomgångMenu
         {
-            Console.Clear();
-            Console.ReadKey();
-
-            Random random = new Random();
-            int Spawn = random.Next(0, 9);
-
-            if (Spawn == 1)//return to SpelomgångMenu
-            {
-                Console.WriteLine("\nThe grass sways peacefully and nothing happened.\n");
-            }
-
-            else if (Spawn == 2)
-            {
-                Combat combat = new Combat();
-                Console.WriteLine("\nThere is a russle in the grass, prepare for battle!");
-                Console.WriteLine("A trainer was hiding in the grass and wants to fight! Prepare for battle!");
-                combat.BattleTrainer(pokemonChoice);
-            }
-
-            else
-            {
-                Combat combat = new Combat();
-                Console.WriteLine("\nThere is a russle in the grass!");
-                Console.WriteLine("A wild pokemon was hiding in the grass and wants to fight! Prepare for battle!");
-                combat.BattleWildPokemon(pokemonChoice);
-
-            }
+            Console.WriteLine("\nThe grass sways peacefully and nothing happened.\n");
         }
 
-        public WildPokemon GenerateWildPokemon()
+        else if (Spawn == 2 || Spawn == 3)
         {
-            Random random = new Random();
-            int randomNumber = random.Next(0, 2);
-            switch (randomNumber)
-            {
-                case 0:
-                    return new Spearow();
-                case 1:
-                    return new Pidgey();
-                case 2:
-                default:
-                    return new Rattata();
-            }
+            Combat combat = new Combat();
+            Console.WriteLine("\nThere is a russle in the grass, prepare for battle!");
+            Console.WriteLine("A trainer was hiding in the grass and wants to fight! Prepare for battle!");
+            combat.BattleTrainer(pokemonChoice);
         }
 
-        public void BattleWildPokemon(StarterPokemon pokemonChoice)
+        else
         {
-            var wildPokemon = GenerateWildPokemon();
+            Combat combat = new Combat();
+            Console.WriteLine("\nThere is a russle in the grass!");
+            Console.WriteLine("A wild pokemon was hiding in the grass and wants to fight! Prepare for battle!");
+            combat.BattleWildPokemon(pokemonChoice);
 
-            while (pokemonChoice.HP > 0 && wildPokemon.HP > 0)
-            //TODO: validera choice
+        }
+    }
+
+    public WildPokemon GenerateWildPokemon()
+    {
+        // Polymorfism! 
+        Random random = new Random();
+        int randomNumber = random.Next(0, 2);
+        switch (randomNumber)
+        {
+            case 0:
+                return new Spearow();
+            case 1:
+                return new Pidgey();
+            case 2:
+            default:
+                return new Rattata();
+        }
+    }
+
+    public void BattleWildPokemon(StarterPokemon pokemonChoice)
+    {
+        var wildPokemon = GenerateWildPokemon();
+
+        while (pokemonChoice.HP > 0 && wildPokemon.HP > 0)
+        //TODO: validera choice
+
+        {
+            Console.WriteLine($"\nThe {wildPokemon.Pokemon} makes it move!");
+            Console.WriteLine("Press enter to attack");
+            Console.WriteLine();
+
+            var choice = ConsoleKey.Enter;
+            if (choice == Console.ReadKey().Key)
             {
                 Random randomAttack = new Random();
-                wildPokemon.Attack = randomAttack.Next(0, 10);
-                pokemonChoice.Attack = randomAttack.Next(0, 20);
+                wildPokemon.Attack = randomAttack.Next(0, wildPokemon.MaxAttack);
+                pokemonChoice.Attack = randomAttack.Next(0, pokemonChoice.MaxAttack);
+                
 
-                Console.WriteLine($"\nThe {wildPokemon.Pokemon} makes it move!");
-                Console.WriteLine("Press enter to attack");
+                Console.WriteLine($"The {wildPokemon.Pokemon} attacked for {wildPokemon.Attack} damage!");
+               
+                pokemonChoice.HP = pokemonChoice.HP - wildPokemon.Attack;
+                Console.WriteLine($"Your {pokemonChoice.Name} has {pokemonChoice.HP} HP left\n");
 
-                var choice = ConsoleKey.Enter;
-                if (choice == Console.ReadKey().Key)
-                {
-                    Console.WriteLine($"\nYour {pokemonChoice.Name} has {pokemonChoice.HP} HP");
-                    Console.WriteLine($"The {wildPokemon.Pokemon} has {wildPokemon.HP} HP\n");
+                Console.WriteLine($"{pokemonChoice.Name} attacked for {pokemonChoice.Attack} damage!");
+                wildPokemon.HP = wildPokemon.HP - pokemonChoice.Attack; //-=
+                Console.WriteLine($"The {wildPokemon.Pokemon} has {wildPokemon.HP} HP");
 
-                    Console.WriteLine($"The {wildPokemon.Pokemon} attacked for {wildPokemon.Attack} damage!");
-                    pokemonChoice.HP = pokemonChoice.HP - wildPokemon.Attack;
-                    Console.WriteLine($"Your {pokemonChoice.Name} has {pokemonChoice.HP} HP left\n");
+                Console.ReadKey();
+                Console.Clear();
+                        
+            }
+        }
+        if (pokemonChoice.HP <= 0)
+        {
+            Console.WriteLine("Your pokemon fainted, you lost the game!");
+            Console.WriteLine();
+            Environment.Exit(0);
+        }
+        else if (wildPokemon.HP <= 0)// Risk finns att spelarna blir ledsna :).
+        {
 
-                    //Console.WriteLine($"The wild {wildPokemon.Pokemon} has {wildPokemon.HP} HP");
-                    Console.WriteLine($"{pokemonChoice.Name} attacked for {pokemonChoice.Attack} damage!");
-                    wildPokemon.HP = wildPokemon.HP - pokemonChoice.Attack; //-=
-                    Console.WriteLine($"The {wildPokemon.Pokemon} has {wildPokemon.HP} HP");
+            Console.WriteLine("You won the battle!\n");
+        
+            Random randomGold = new Random();
+            var gold = randomGold.Next(1, 50);//For gold
+            Console.WriteLine($"You've deafeated the wild pokemon, you see something shiny on the ground. You found {gold} gold!");
+            pokemonChoice.Gold = gold;
+            
+            LevelingUp(pokemonChoice);
+        }
+    }
 
-                    Console.ReadKey();
-                    Console.Clear();
-                }
+    public StarterPokemon GenerateTrainer()
+    {
+        Random random = new Random();
+        int randomNumber = random.Next(0, 2);
+        switch (randomNumber)
+        {
+            case 0:
+                return new Bulbasaur();
+            case 1:
+                return new Charmander();
+            case 2:
+            default:
+                return new Squirtle();
+        }
+    }
+
+    public void BattleTrainer(StarterPokemon pokemonChoice)
+    {
+        var trainer = GenerateTrainer();
+
+        while (pokemonChoice.HP > 0 && trainer.HP > 0)
+        //TODO: validera choice
+        {
+            Random randomAttack = new Random();
+            trainer.Attack = randomAttack.Next(0, 5);
+            pokemonChoice.Attack = randomAttack.Next(0, 20);
+
+            Console.WriteLine($"\nThe {trainer.Pokemon} makes it move!");
+            Console.WriteLine("Press enter to attack");
+            Console.WriteLine();
+
+            var choice = ConsoleKey.Enter;
+            if (choice == Console.ReadKey().Key)
+            {
+
+                Console.WriteLine($"The {trainer.Pokemon} attacked for {trainer.Attack} damage!");
+                pokemonChoice.HP = pokemonChoice.HP - trainer.Attack;
+                Console.WriteLine($"Your {pokemonChoice.Name} has {pokemonChoice.HP} HP left\n");
+
+              
+                Console.WriteLine($"{pokemonChoice.Name} attacked for {pokemonChoice.Attack} damage!");
+                trainer.HP = trainer.HP - pokemonChoice.Attack; //-=
+                Console.WriteLine($"The {trainer.Pokemon} has {trainer.HP} HP");
+
+                Console.ReadKey();
+                Console.Clear();
             }
             if (pokemonChoice.HP <= 0)
             {
@@ -94,122 +163,47 @@ namespace Pokemon_omstart
                 Console.WriteLine();
                 Environment.Exit(0);
             }
-            else if (wildPokemon.HP <= 0)
+            else if (trainer.HP <= 0)
             {
-
-                Console.WriteLine("\nOika saker level, exp etc");
-                Console.WriteLine("You won the battle!\n");
+                Console.WriteLine("You won the battle!");
+                Random randomGold = new Random();
+                var gold = randomGold.Next(1, 100);//For gold
+                Console.WriteLine($"You've deafeated the trainer and gotten {gold} gold for winning!");
+                pokemonChoice.Gold = gold;
                 LevelingUp(pokemonChoice);
             }
         }
+    }
 
-        public StarterPokemon GenerateTrainer()
+    public static void LevelingUp(StarterPokemon pokemonChoice)
+
+    {
+        Random randomExp = new Random();
+        int expWon = randomExp.Next(1, 100);
+      
+        pokemonChoice.Exp += expWon;
+
+        Console.WriteLine($"{expWon} won exp");
+        Console.WriteLine($"{pokemonChoice.Exp} current exp");
+
+        Console.WriteLine($"{pokemonChoice.Level} pokemon level");
+
+        if (pokemonChoice.Level == 10)
         {
-            Random random = new Random();
-            int randomNumber = random.Next(0, 2);
-            switch (randomNumber)
-            {
-                case 0:
-                    return new Bulbasaur();
-                case 1:
-                    return new Charmander();
-                case 2:
-                default:
-                    return new Squirtle();
-            }
+            Console.WriteLine($"Congratulations! You have reached level {pokemonChoice.Level} and won the game!  ");
+            Environment.Exit(0);
         }
 
-        public void BattleTrainer(StarterPokemon pokemonChoice)
+        if (pokemonChoice.Exp > pokemonChoice.ExpRequired)
         {
-            var trainer = GenerateTrainer();
-
-            while (pokemonChoice.HP > 0 && trainer.HP > 0)
-            //TODO: validera choice
-            {
-                Random randomAttack = new Random();
-                trainer.Attack = randomAttack.Next(0, 10);
-                pokemonChoice.Attack = randomAttack.Next(0, 20);
-
-                Console.WriteLine($"\nThe {trainer.Pokemon} makes it move!");
-                Console.WriteLine("Press enter to attack");
-
-                //string choice = Console.ReadLine();
-                var choice = ConsoleKey.Enter;
-                if (choice == Console.ReadKey().Key)
-                {
-                    Console.WriteLine($"\nYour {pokemonChoice.Name} has {pokemonChoice.HP} HP");
-                    Console.WriteLine($"The {trainer.Pokemon} has {trainer.HP} HP\n");
-
-                    Console.WriteLine($"The {trainer.Pokemon} attacked for {trainer.Attack} damage!");
-                    pokemonChoice.HP = pokemonChoice.HP - trainer.Attack;
-                    Console.WriteLine($"Your {pokemonChoice.Name} has {pokemonChoice.HP} HP left\n");
-
-                    //Console.WriteLine($"The wild {wildPokemon.Pokemon} has {wildPokemon.HP} HP");
-                    Console.WriteLine($"{pokemonChoice.Name} attacked for {pokemonChoice.Attack} damage!");
-                    trainer.HP = trainer.HP - pokemonChoice.Attack; //-=
-                    Console.WriteLine($"The {trainer.Pokemon} has {trainer.HP} HP");
-
-                    Console.ReadKey();
-                    Console.Clear();
-
-                }
-                if (pokemonChoice.HP <= 0)
-                {
-                    Console.WriteLine("Your pokemon fainted, you lost the game!");
-                    Console.WriteLine();
-                    Environment.Exit(0);
-                }
-                else if (trainer.HP <= 0)
-                {                                       
-                    Console.WriteLine("You won the battle!");
-                    Random randomGold = new Random();
-                    var gold = randomGold.Next(1, 50);//For gold
-                    Console.WriteLine($"You've deafeated the trainer and gotten {gold} gold for winning!");
-                    pokemonChoice.Gold = gold;
-                    LevelingUp(pokemonChoice);
-                }
-            }
-        }
-
-        public static void LevelingUp(StarterPokemon pokemonChoice)
-            
-        {
-            Random randomExp = new Random();
-            int expWon = randomExp.Next(1, 100);
-            //int currentExp = pokemonChoice.Exp;
-
-            //pokemonChoice.Exp = currentExp + expWon;
-            pokemonChoice.Exp =+ expWon;
-
-            //int level = pokemonChoice.Level;
-
-            int expRequired =+ 100;//it resets after every battle.
-
-            Console.WriteLine($"{expWon} won exp");
+            pokemonChoice.Level++;
+            pokemonChoice.Exp = 0;
+            pokemonChoice.ExpRequired = 50 * pokemonChoice.Level;
+            Console.WriteLine($"Your pokemon leveled up! Your pokemon is level {pokemonChoice.Level}");
             Console.WriteLine($"{pokemonChoice.Exp} current exp");
-
             Console.WriteLine($"{pokemonChoice.Level} pokemon level");
-
-            if (pokemonChoice.Level == 10) 
-            {
-                Console.WriteLine($"Congratulations! You have reached level {pokemonChoice.Level} and won the game!  ");
-                Environment.Exit(0);
-              
-            }
-
-            if (pokemonChoice.Exp > expRequired)
-            {
-                pokemonChoice.Level++;
-                pokemonChoice.HP += 20;
-                expRequired += 100;
-                //currentExp -= expRequired;
-              
-                Console.WriteLine($"Your pokemon leveled up! Your pokemon is level {pokemonChoice.Level}");
-                Console.WriteLine($"{pokemonChoice.Exp} current exp");
-                Console.WriteLine($"{pokemonChoice.Level} pokemon level");
-            }
-
         }
+
     }
 }
 

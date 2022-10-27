@@ -16,7 +16,6 @@ public class Items
     public int Attack { get; set; }
     public int Defence { get; set; }
 
-    // put any common attributes here
 }
 
 public class Defence : Items
@@ -26,8 +25,7 @@ public class Defence : Items
         Name = "X Defence";
         Description = "This raises your pokemons defences";
         Price = 5;
-        Defence = +10;
-        
+        Defence = +10;        
     }
 }
 
@@ -40,7 +38,6 @@ public class AttackPower : Items
         Price = 5;
         Attack = +10;
     }
-    // define properties for attack here
 }
 
 public class Leveling : Items

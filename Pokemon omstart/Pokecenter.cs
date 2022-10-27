@@ -21,7 +21,6 @@ namespace Pokemon_omstart;
 
         Console.ReadKey();
         Console.Clear();
-
     }
 
     //public static void PokemonCenter(StarterPokemon pokemonChoice)
@@ -31,12 +30,6 @@ namespace Pokemon_omstart;
         if (pokeChoice == 1)
         {
             bulbasaur.HP = bulbasaur.MaxHP;
-            
-            //bulbasaur.HP = 45;
-            // göra någon slags MaxHP int här
-            // Du kan lägga till MaxHP i din StarterPokemon så ärver alla starters
-            // den egenskapen. Så är det bara att sätta pokemon.hp=pokemon.maxhp
-            // på den man skickat in
         }
         else if (pokeChoice == 2)
         {

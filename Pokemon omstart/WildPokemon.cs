@@ -8,24 +8,12 @@ namespace Pokemon_omstart;
 
 public class WildPokemon
 {
-
     public string? Pokemon { get; set; }
     public int HP { get; set; }
     public int Attack { get; set; }
     public int MaxAttack { get; set; }
-
-    public void RandomAttack(int attack)
-    {
-        Random randomAttack = new Random();
-        Attack = randomAttack.Next(0, Attack);
-
-    }
-
-    public void DamageTaken(int damageTaken)
-    {
-        HP = -damageTaken;
-    }
 }
+
 public class Rattata : WildPokemon
 {
     public Rattata()
@@ -36,6 +24,7 @@ public class Rattata : WildPokemon
         MaxAttack = 20;
     }
 }
+
 public class Pidgey : WildPokemon
 {
     public Pidgey()
@@ -45,8 +34,8 @@ public class Pidgey : WildPokemon
         Attack = 20;
         MaxAttack = 20;
     }
-
 }
+
 public class Spearow : WildPokemon
 {
     public Spearow()

@@ -135,7 +135,7 @@ public class Combat
             trainer.Attack = randomAttack.Next(0, trainer.MaxAttack);
             pokemonChoice.Attack = randomAttack.Next(0, pokemonChoice.MaxAttack);
 
-            Console.WriteLine($"\nThe {trainer.Pokemon} makes it move!");
+            Console.WriteLine($"\nThe trainer sends out it's {trainer.Pokemon}!");
             Console.WriteLine("Press enter to attack");
             Console.WriteLine();
 
@@ -201,7 +201,7 @@ public class Combat
             Console.WriteLine($"{pokemonChoice.Exp} current exp");
             Console.WriteLine($"{pokemonChoice.Level} pokemon level");
         }
-
+        Console.ReadLine();
     }
 }
 

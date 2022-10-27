@@ -22,6 +22,7 @@ internal class Logics
         string name = Console.ReadLine();
         pokemonChoice.Name = name;
         Console.WriteLine($"Your pokemon is named {pokemonChoice.Name}\n");
+        Console.ReadLine();
 
         while (Playing)
         {

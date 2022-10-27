@@ -20,8 +20,8 @@ public class Rattata : WildPokemon
     {
         Pokemon = "Rattata";
         HP = 30;
-        Attack = 20;
-        MaxAttack = 20;
+        Attack = 30;
+        MaxAttack = 30;
     }
 }
 
@@ -31,8 +31,8 @@ public class Pidgey : WildPokemon
     {
         Pokemon = "Pidgey";
         HP = 40;
-        Attack = 20;
-        MaxAttack = 20;
+        Attack = 30;
+        MaxAttack = 30;
     }
 }
 
@@ -42,8 +42,8 @@ public class Spearow : WildPokemon
     {
         Pokemon = "Spearow";
         HP = 40;
-        Attack = 20;
-        MaxAttack = 20;
+        Attack = 40;
+        MaxAttack = 40;
     }
 }
 
